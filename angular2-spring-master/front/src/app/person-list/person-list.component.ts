@@ -48,19 +48,20 @@ export class PersonListComponent implements OnInit, Table<Person> {
     newPerson: Person = new Person();
     editable : boolean;
     isChanged : boolean;
-
+    isAdd : boolean;
 
     constructor(private personService: PersonService, private router: Router) {
         
     }
 
     ngOnInit() {
-        let observable: Rx.Observable<PaginationPage<any>> = this.fetchPage(0, 10, null);
+        let observable: Rx.Observable<PaginationPage<any>> = this.fetchPage(0, 20, null);
         showLoading();
         observable.subscribe(doNothing, hideLoading, hideLoading);
         this.self = this;
         this.editable = false;
         this.isChanged = false;
+        this.isAdd = false;
     }
 
     fetchPage(pageNumber: number, pageSize: number, sort: PaginationPropertySort): Rx.Observable<PaginationPage<Person>> {
@@ -96,10 +97,31 @@ export class PersonListComponent implements OnInit, Table<Person> {
             this.isChanged=true;
     }
 
+    // checkForUpdate()
+    // {
+    //     var idCount=this.personPage.content[0].id;
+    //     for(let p of this.personPage.content)
+    //     {
+    //         p.id = idCount;
+    //         this.update(p);
+    //          idCount++;
+    //     }
+    //     //Display change log
+    //     this.isChanged=false;
+    //     this.editable=false;
+    // }
+
     checkForUpdate()
     {
+        var idCount=this.personPage.content[0].id;
         for(let p of this.personPage.content)
+        {
+            //console.log(idCount + "," + p.id);
+            //p.id=idCount;
             this.update(p);
+            //console.log(idCount + "," + p.id);
+             idCount++;
+        }
         //Display change log
         this.isChanged=false;
         this.editable=false;
@@ -139,7 +161,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
         let observable: Rx.Observable<Response> = this.personService.deletePerson(person.id);
         showLoading();
         observable.switchMap(() => {
-            return this.fetchPage(0, 10, null);
+            return this.fetchPage(0, 20, null);
         }).subscribe(doNothing, hideLoading, hideLoading);
     }
 
