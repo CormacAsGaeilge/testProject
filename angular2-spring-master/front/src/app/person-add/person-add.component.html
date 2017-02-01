@@ -1,0 +1,27 @@
+
+    <h3 class="page-header">Person </h3>
+
+    <div class="row">
+        <div class="col-md-12">
+           <p><strong>First name</strong></p>
+            <input type="text" [(ngModel)]="person.firstname" placeholder="name" />
+        </div>
+
+        <div class="col-md-12">
+            <p><strong>Last name</strong></p>
+            <input type="text" [(ngModel)]="person.lastname" placeholder="name" />
+        </div>
+
+        <div class="col-md-12">
+            <p><strong>Age</strong></p>
+           <input type="text" [(ngModel)]="person.age" placeholder="age" />
+        </div>
+    </div>
+
+    <hr />
+    <div id="actions" class="row">
+        <div class="col-md-12">
+            <a (click)="back()" class="btn btn-primary">Back</a>
+            <a (click)="add()" class="btn btn-default">Add</a>
+        </div>
+    </div>
