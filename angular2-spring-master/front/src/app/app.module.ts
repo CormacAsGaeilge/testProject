@@ -23,7 +23,7 @@ import {UserRegisterComponent} from './user-register/user-register.component';
 import {DraggableDirectiveComponent} from './draggable/draggable-directive.component';
 import {DraggableProviderService} from './service/draggable-provider.service';
 
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { ChartComponent } from './chart/chart.component';
 
 //import {SampleListComponent} from './sample/sample-list.component';

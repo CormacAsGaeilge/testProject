@@ -40,7 +40,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     <tr [ngSwitch]="editable" *ngFor="let person of personPage.content; let i=index">
                         <td *ngSwitchCase="true"><input #frst (keyup)="checkIfChange(frst)" type="text" [(ngModel)]="person.firstname" placeholder="name" /></td>
                         <td *ngSwitchCase="true"><input  #lst (keyup)="checkIfChange(lst)" type="text" [(ngModel)]="person.lastname" placeholder="name" /></td>
