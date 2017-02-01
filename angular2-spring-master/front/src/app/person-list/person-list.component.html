@@ -32,9 +32,9 @@
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th><app-table-sort [table]="self" [page]="personPage" [label]="'First Name'" [property]="'firstname'" ></app-table-sort></th>
-                        <th><app-table-sort [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
-                        <th><app-table-sort [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'First Name'" [property]="'firstname'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
                         <th class="actions">Actions</th>
                         <th class="deleteAll">DeleteAll</th>
                     </tr>
@@ -88,8 +88,8 @@
     </div> <!-- /#list -->
 
     <app-table-pagination [table]="self" [page]="personPage"></app-table-pagination>
-
-    <app-chart></app-chart>
+    <button (click)="updateChart()">UPDATE CHART</button>
+    <app-chart [data]="chartData" [labels]="chartLabels" ></app-chart>
 
         <!-- Modal Delete-->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -103,7 +103,7 @@
                     Do you want to remove this item ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" (click)="delete(currentPerson)" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    <button type="button" (click)="delete(currentPerson); updateChart()" class="btn btn-primary" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" data-dismiss="modal">No</button>
                 </div>
             </div>

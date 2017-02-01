@@ -51,11 +51,38 @@ export class PersonListComponent implements OnInit, Table<Person> {
     editable : boolean;
     isChanged : boolean;
     isAdd : boolean;
+    chartVisible : boolean;
     updated : number;
-
+    chartData : Array<any>;
+    chartLabels : Array<any>;
+    timer: any;
     constructor(private personService: PersonService, private router: Router) {
         
     }
+
+    updateChart()
+    {
+        setTimeout(() => {  
+            if(!this.chartVisible)
+                this.chartVisible = true;
+
+            let ages: number[] = [];
+            let i = 0;
+            for(let p of this.personPage.content)
+            {
+                ages[i]=p.age;
+                 this.chartLabels[i]=p.firstname;
+                i++;
+            }
+
+            this.chartData = [
+                {data: ages, label: 'Age'},
+            ];
+        }, 500);
+    }
+
+
+
 
     ngOnInit() {
         let observable: Rx.Observable<PaginationPage<any>> = this.fetchPage(0, 20, null);
@@ -66,12 +93,19 @@ export class PersonListComponent implements OnInit, Table<Person> {
         this.editable = false;
         this.isChanged = false;
         this.isAdd = false;
+        this.chartVisible = false;
         this.updated = 0;
+        this.chartData = [
+            {data: [20,20,20,20,20], label: 'Age'},
+          ];
+        this.chartLabels = [];
+        this.updateChart();
     }
 
     fetchPage(pageNumber: number, pageSize: number, sort: PaginationPropertySort): Rx.Observable<PaginationPage<Person>> {
         let observable: Rx.Observable<PaginationPage<Person>> = this.personService.findPersons(pageNumber, pageSize, sort);
         observable.subscribe(personPage => this.personPage = personPage);
+        
         return observable;
     }
 
@@ -125,6 +159,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
         //Display change log
         this.isChanged=false;
         this.editable=false;
+        this.updateChart();
     }
 
     update(person){
