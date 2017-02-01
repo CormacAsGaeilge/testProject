@@ -47,6 +47,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
     self: Table<Person>;
     newPerson: Person = new Person();
     editable : boolean;
+    isChanged : boolean;
 
 
     constructor(private personService: PersonService, private router: Router) {
@@ -59,6 +60,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
         observable.subscribe(doNothing, hideLoading, hideLoading);
         this.self = this;
         this.editable = false;
+        this.isChanged = false;
     }
 
     fetchPage(pageNumber: number, pageSize: number, sort: PaginationPropertySort): Rx.Observable<PaginationPage<Person>> {
@@ -86,6 +88,21 @@ export class PersonListComponent implements OnInit, Table<Person> {
     goToAdd()
     {
         this.router.navigate(['person_add']);
+    }
+
+    checkIfChange(id)
+    {
+        if(id.classList.contains('ng-dirty'))
+            this.isChanged=true;
+    }
+
+    checkForUpdate()
+    {
+        for(let p of this.personPage.content)
+            this.update(p);
+        //Display change log
+        this.isChanged=false;
+        this.editable=false;
     }
 
     update(person){
