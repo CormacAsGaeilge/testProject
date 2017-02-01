@@ -35,6 +35,7 @@
                         <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'First Name'" [property]="'firstname'" ></app-table-sort></th>
                         <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
                         <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Location'" [property]="'location'" ></app-table-sort></th>
                         <th class="actions">Actions</th>
                         <th class="deleteAll">DeleteAll</th>
                     </tr>
@@ -44,9 +45,11 @@
                         <td *ngSwitchCase="true"><input #frst (keyup)="checkIfChange(frst)" type="text" [(ngModel)]="person.firstname" placeholder="name" /></td>
                         <td *ngSwitchCase="true"><input  #lst (keyup)="checkIfChange(lst)" type="text" [(ngModel)]="person.lastname" placeholder="name" /></td>
                         <td *ngSwitchCase="true"><input  #age (keyup)="checkIfChange(age)" type="text" [(ngModel)]="person.age" placeholder="age" /></td>
+                        <td *ngSwitchCase="true"><input  #location (keyup)="checkIfChange(location)" type="text" [(ngModel)]="person.location" placeholder="location" /></td>
                         <td  (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.firstname}}</td>
                         <td (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.lastname}}</td>
                         <td  (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.age}}</td>
+                        <td  (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.location}}</td>
                         <td class="actions">
                             <a class="btn btn-danger btn-xs" (click)="currentPerson=person" data-toggle="modal" data-target="#delete-modal">
                                 <i class="fa-lg fa fa-trash-o" aria-hidden="true"></i>
@@ -62,6 +65,7 @@
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.firstname" placeholder="firstname" /></td>
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.lastname" placeholder="lastname" /></td>
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.age" placeholder="age" /></td>
+                        <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.location" placeholder="location" /></td>
                         <td class="actions" style="background-color: #fff;">
                             <a  *ngIf="isAdd && !editable" class="btn btn-success btn-xs" (click)="add()">
                                 <i class="fa-lg fa fa-plus-square" aria-hidden="true"></i>
@@ -87,8 +91,7 @@
         </div>
     </div> <!-- /#list -->
 
-    <app-table-pagination [table]="self" [page]="personPage"></app-table-pagination>
-    <button (click)="updateChart()">UPDATE CHART</button>
+    <app-table-pagination  (click)="updateChart()" [table]="self" [page]="personPage"></app-table-pagination>
     <app-chart [data]="chartData" [labels]="chartLabels" ></app-chart>
 
         <!-- Modal Delete-->
@@ -103,7 +106,7 @@
                     Do you want to remove this item ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" (click)="delete(currentPerson); updateChart()" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    <button type="button" (click)="delete(currentPerson)" class="btn btn-primary" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" data-dismiss="modal">No</button>
                 </div>
             </div>

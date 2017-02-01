@@ -4,6 +4,7 @@ export class Person {
     firstname 	: string;
     lastname 	: string;
     age 		: number;
+    location	: string;
 }
 
 export class File

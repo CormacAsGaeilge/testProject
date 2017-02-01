@@ -10,6 +10,8 @@ public class PersonDTO extends AbstractDTO {
     String firstname;
 
     String lastname;
+    
+    String location;
 
     Integer age;
 
@@ -29,6 +31,14 @@ public class PersonDTO extends AbstractDTO {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Integer getAge() {

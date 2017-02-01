@@ -11,6 +11,7 @@ public class Person extends AbstractEntity {
 
 	String firstname;
 	String lastname;
+	String location;
 	Integer age;
 
 	public String getFirstname() {
@@ -24,6 +25,15 @@ public class Person extends AbstractEntity {
 	public String getLastname() {
 		return lastname;
 	}
+	
+ 	public String getLocation() {
+ 		return location;
+    }
+
+ 	public void setLocation(String location) {
+ 		this.location = location;
+ 	}
+
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;

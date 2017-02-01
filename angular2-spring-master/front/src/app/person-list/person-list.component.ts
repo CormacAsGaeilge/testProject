@@ -56,33 +56,10 @@ export class PersonListComponent implements OnInit, Table<Person> {
     chartData : Array<any>;
     chartLabels : Array<any>;
     timer: any;
+    
     constructor(private personService: PersonService, private router: Router) {
         
     }
-
-    updateChart()
-    {
-        setTimeout(() => {  
-            if(!this.chartVisible)
-                this.chartVisible = true;
-
-            let ages: number[] = [];
-            let i = 0;
-            for(let p of this.personPage.content)
-            {
-                ages[i]=p.age;
-                 this.chartLabels[i]=p.firstname;
-                i++;
-            }
-
-            this.chartData = [
-                {data: ages, label: 'Age'},
-            ];
-        }, 500);
-    }
-
-
-
 
     ngOnInit() {
         let observable: Rx.Observable<PaginationPage<any>> = this.fetchPage(0, 20, null);
@@ -99,27 +76,21 @@ export class PersonListComponent implements OnInit, Table<Person> {
             {data: [20,20,20,20,20], label: 'Age'},
           ];
         this.chartLabels = [];
-        this.updateChart();
     }
 
     fetchPage(pageNumber: number, pageSize: number, sort: PaginationPropertySort): Rx.Observable<PaginationPage<Person>> {
         let observable: Rx.Observable<PaginationPage<Person>> = this.personService.findPersons(pageNumber, pageSize, sort);
         observable.subscribe(personPage => this.personPage = personPage);
-        
+        this.updateChart();
         return observable;
     }
 
-    toggleEditable(bool : boolean)
-    {
-        console.log(bool);
-        if(bool)
-            this.editable = true; 
-        else
-            this.editable = false;   
-    }
+    
+
     goToDetails(person) {
         this.router.navigate(['person', person.id]);
     }
+
      goToEdit(person)
     {
         this.router.navigate(['person_edit', person.id]);
@@ -135,7 +106,16 @@ export class PersonListComponent implements OnInit, Table<Person> {
         if(id.classList.contains('ng-dirty'))
             this.isChanged=true;
     }
-    
+
+    toggleEditable(bool : boolean)
+    {
+        console.log(bool);
+        if(bool)
+            this.editable = true; 
+        else
+            this.editable = false;   
+    }
+
     checkForUpdate()
     {
         
@@ -178,7 +158,30 @@ export class PersonListComponent implements OnInit, Table<Person> {
     {
 
     }
-    
+
+    updateChart()
+    {
+        setTimeout(() => {  
+            if(!this.chartVisible)
+                this.chartVisible = true;
+
+            let ages: number[] = [];
+            let i = 0;
+            for(let p of this.personPage.content)
+            {
+                ages[i]=p.age;
+                 this.chartLabels[i]=p.firstname;
+                i++;
+
+                console.log(p.location);
+            }
+
+            this.chartData = [
+                {data: ages, label: 'Age'},
+            ];
+        }, 500);
+    }
+
     add(){
 
         this.personService.addPerson(this.newPerson).subscribe(
@@ -189,6 +192,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
         this.isAdd=false;
 
         this.router.navigate(['']);
+        this.updateChart();
     }
 
     delete(person) {
@@ -198,6 +202,8 @@ export class PersonListComponent implements OnInit, Table<Person> {
         observable.switchMap(() => {
             return this.fetchPage(0, 20, null);
         }).subscribe(doNothing, hideLoading, hideLoading);
+
+        this.updateChart();
     }
 
     
