@@ -44,11 +44,14 @@ import {Person} from '../domain';
 export class PersonListComponent implements OnInit, Table<Person> {
 
     personPage: PaginationPage<Person>;
+    originalPersons:  PaginationPage<Person>;
     self: Table<Person>;
+    originalP : Person = new Person();
     newPerson: Person = new Person();
     editable : boolean;
     isChanged : boolean;
     isAdd : boolean;
+    updated : number;
 
     constructor(private personService: PersonService, private router: Router) {
         
@@ -57,11 +60,13 @@ export class PersonListComponent implements OnInit, Table<Person> {
     ngOnInit() {
         let observable: Rx.Observable<PaginationPage<any>> = this.fetchPage(0, 20, null);
         showLoading();
+        this.originalPersons = this.personPage;
         observable.subscribe(doNothing, hideLoading, hideLoading);
         this.self = this;
         this.editable = false;
         this.isChanged = false;
         this.isAdd = false;
+        this.updated = 0;
     }
 
     fetchPage(pageNumber: number, pageSize: number, sort: PaginationPropertySort): Rx.Observable<PaginationPage<Person>> {
@@ -96,31 +101,26 @@ export class PersonListComponent implements OnInit, Table<Person> {
         if(id.classList.contains('ng-dirty'))
             this.isChanged=true;
     }
-
-    // checkForUpdate()
-    // {
-    //     var idCount=this.personPage.content[0].id;
-    //     for(let p of this.personPage.content)
-    //     {
-    //         p.id = idCount;
-    //         this.update(p);
-    //          idCount++;
-    //     }
-    //     //Display change log
-    //     this.isChanged=false;
-    //     this.editable=false;
-    // }
-
+    
     checkForUpdate()
     {
-        var idCount=this.personPage.content[0].id;
+        
+        //var count = 0;
+        //var idCount=this.personPage.content[count].id;
         for(let p of this.personPage.content)
         {
+
+            //this.originalP = this.originalPersons.content[count];
+
+            //if(p.firstname != this.originalP.firstname || p.lastname != this.originalP.lastname || p.age != this.originalP.age)
+                //this.updated++;
             //console.log(idCount + "," + p.id);
             //p.id=idCount;
             this.update(p);
             //console.log(idCount + "," + p.id);
-             idCount++;
+            //count++;
+            //idCount=this.personPage.content[count].id;
+
         }
         //Display change log
         this.isChanged=false;
@@ -151,7 +151,7 @@ export class PersonListComponent implements OnInit, Table<Person> {
                 this.newPerson = new Person();
             },
             error => console.log(error));
-        
+        this.isAdd=false;
 
         this.router.navigate(['']);
     }

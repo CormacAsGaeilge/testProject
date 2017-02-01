@@ -23,6 +23,8 @@ import {UserRegisterComponent} from './user-register/user-register.component';
 import {DraggableDirectiveComponent} from './draggable/draggable-directive.component';
 import {DraggableProviderService} from './service/draggable-provider.service';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 //import {SampleListComponent} from './sample/sample-list.component';
 
@@ -49,19 +51,15 @@ const appRoutes: Routes = [
         RegisterComponent,
         LoginComponent,
         UserRegisterComponent,
-
-        //SampleListComponent,
-
-
-        DraggableDirectiveComponent
-
-        
+        DraggableDirectiveComponent,
+        ChartComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes),
+        ChartsModule
     ],
    
     providers: [PersonService, UserService, AuthenticationService , AlertService, DraggableProviderService],

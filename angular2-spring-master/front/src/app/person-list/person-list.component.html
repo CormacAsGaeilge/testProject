@@ -36,6 +36,7 @@
                         <th><app-table-sort [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
                         <th><app-table-sort [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
                         <th class="actions">Actions</th>
+                        <th class="deleteAll">DeleteAll</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,20 +53,33 @@
                                 <i class="fa-lg fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         </td>
+                        <td class="deleteAll">
+                            <a>
+                                <input type="checkbox"/>
+                            </a>
+                        </td>
                     </tr>
                     <tr [ngSwitch]="editable" style="background-color: #888;">
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.firstname" placeholder="firstname" /></td>
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.lastname" placeholder="lastname" /></td>
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.age" placeholder="age" /></td>
-                        <td class="actions">
+                        <td class="actions" style="background-color: #fff;">
                             <a  *ngIf="isAdd && !editable" class="btn btn-success btn-xs" (click)="add()">
                                 <i class="fa-lg fa fa-plus-square" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-success btn-xs" (click)="fetchPage(0, 20, null)">
+                                <i class="fa-lg fa fa-refresh" aria-hidden="true"></i>
                             </a>
                             <a *ngSwitchCase="true" class="btn btn-success btn-xs" (click)="toggleEditable(false)">
                                 <i class="fa-lg fa fa-ban" aria-hidden="true"></i>
                             </a>
-                            <a *ngIf="isChanged" class="btn btn-warning btn-xs" (click)="checkForUpdate()">
+                            <a *ngIf="isChanged" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#update-modal" (click)="checkForUpdate()">
                                 <i class="fa-lg fa fa-cloud-upload" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td class="deleteAll" style="background-color: #fff;">
+                            <a class="btn btn-danger btn-xs" (click)="deleteAll()">
+                                <i class="fa-lg fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
@@ -74,14 +88,11 @@
         </div>
     </div> <!-- /#list -->
 
-
-    <a   class="btn btn-success btn-xs" (click)="fetchPage(0, 20, null)">Refresh</a>
-    <a class="btn btn-danger btn-xs" (click)="deleteAll()">Delete All</a>
-
-
     <app-table-pagination [table]="self" [page]="personPage"></app-table-pagination>
 
-        <!-- Modal -->
+    <app-chart></app-chart>
+
+        <!-- Modal Delete-->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -95,6 +106,26 @@
                 <div class="modal-footer">
                     <button type="button" (click)="delete(currentPerson)" class="btn btn-primary" data-dismiss="modal">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Update -->
+    <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalLabel">Table Updated</h4>
+                </div>
+                <div class="modal-body">
+                    {{updated}} row(s) updated.
+                </div>
+                <div class="modal-footer">
+                    <button (onclick)="updated=0" type="button" class="btn btn-default" data-dismiss="modal" data-dismiss="modal">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
