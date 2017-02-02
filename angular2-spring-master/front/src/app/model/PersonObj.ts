@@ -4,5 +4,6 @@ export class PersonObj {
  	public firstName: string;
   	public lastName	: string;
   	public age 		: number;
+  	public location : string;
 }
 

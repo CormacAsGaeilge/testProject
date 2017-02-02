@@ -9,10 +9,13 @@ export class ChartComponent {
 
 
 // lineChart
-   @Input('data') lineChartData:Array<any>;
-   @Input('labels') lineChartLabels:Array<any>;
+   @Input('data') chartData:Array<any>;
+   @Input('labels') chartLabels:Array<any>;
+   @Input('type') chartType:string;
+   @Input('legend') chartLegend:boolean;
+   @Input('chartTypePicker') chartTypePicker: boolean = false;
 
-  public lineChartOptions:any = {
+  public chartOptions:any = {
     responsive: true,
     scales: {
         yAxes: [{
@@ -25,7 +28,8 @@ export class ChartComponent {
         }]
     }
   };
-  public lineChartColors:Array<any> = [
+
+  public chartColors:Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -35,16 +39,20 @@ export class ChartComponent {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'bar';
- 
  
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    //console.log(e);
+    this.chartData = this.chartData.slice();
   }
  
   public chartHovered(e:any):void {
-    console.log(e);
+
   }
+
+  legendToggle()
+  {
+    this.chartLegend = !this.chartLegend;
+  }
+
 }

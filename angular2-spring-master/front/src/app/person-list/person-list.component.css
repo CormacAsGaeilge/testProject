@@ -12,3 +12,7 @@ tbody tr td{
 .deleteAll{
 	text-align: center;
 }
+
+.row-size{
+	width:50%;
+}

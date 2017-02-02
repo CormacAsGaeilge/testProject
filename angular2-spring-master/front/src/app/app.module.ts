@@ -25,7 +25,13 @@ import {DraggableProviderService} from './service/draggable-provider.service';
 
 import { ChartsModule } from 'ng2-charts';
 import { ChartComponent } from './chart/chart.component';
+import { ChartService } from './service/chart.service';
 
+import { ChartModule } from 'angular2-highcharts';
+import { HighchartComponent } from './highchart/highchart.component';
+import { GooglechartComponent } from './googlechart/googlechart.component';
+import { GooglePieChartComponent } from './google-pie-chart/google-pie-chart.component';
+import { ReportSheetComponent } from './report-sheet/report-sheet.component';
 //import {SampleListComponent} from './sample/sample-list.component';
 
 const appRoutes: Routes = [
@@ -52,17 +58,22 @@ const appRoutes: Routes = [
         LoginComponent,
         UserRegisterComponent,
         DraggableDirectiveComponent,
-        ChartComponent
+        ChartComponent,
+        HighchartComponent,
+        GooglechartComponent,
+        GooglePieChartComponent,
+        ReportSheetComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
         RouterModule.forRoot(appRoutes),
-        ChartsModule
+        ChartsModule,
+        ChartModule
     ],
    
-    providers: [PersonService, UserService, AuthenticationService , AlertService, DraggableProviderService],
+    providers: [PersonService, UserService, AuthenticationService , AlertService, DraggableProviderService, ChartService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

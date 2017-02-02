@@ -1,41 +1,13 @@
 <template [ngIf]="personPage != null">
-
-    <!--div id="top" class="row">
-        <div class="col-sm-3">
-            <h2>Persons</h2>
-        </div>
-        <div class="col-sm-6">
-
-            <div class="input-group h2">
-                <input name="data[search]" class="form-control" id="search" type="text" placeholder="Search">
-				<span class="input-group-btn">
-					<button class="btn btn-primary" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-				</span>
-            </div>
-
-        </div>
-        <div class="col-sm-3">
-            <a href="add.html" class="btn btn-primary pull-right h2">New Item</a>
-        </div>
-    </div> -->
-
-    <hr/>
-
-
-
-
-
     <div id="list" class="row">
         <div class="table-responsive col-md-12">
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'First Name'" [property]="'firstname'" ></app-table-sort></th>
-                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
-                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
-                        <th><app-table-sort (click)="updateChart()" [table]="self" [page]="personPage" [label]="'Location'" [property]="'location'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateCharts()" [table]="self" [page]="personPage" [label]="'First Name'" [property]="'firstname'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateCharts()" [table]="self" [page]="personPage" [label]="'Last Name'" [property]="'lastname'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateCharts()" [table]="self" [page]="personPage" [label]="'Age'" [property]="'age'" ></app-table-sort></th>
+                        <th><app-table-sort (click)="updateCharts()" [table]="self" [page]="personPage" [label]="'Location'" [property]="'location'" ></app-table-sort></th>
                         <th class="actions">Actions</th>
                         <th class="deleteAll">DeleteAll</th>
                     </tr>
@@ -70,9 +42,6 @@
                             <a  *ngIf="isAdd && !editable" class="btn btn-success btn-xs" (click)="add()">
                                 <i class="fa-lg fa fa-plus-square" aria-hidden="true"></i>
                             </a>
-                            <a class="btn btn-success btn-xs" (click)="fetchPage(0, 20, null)">
-                                <i class="fa-lg fa fa-refresh" aria-hidden="true"></i>
-                            </a>
                             <a *ngSwitchCase="true" class="btn btn-success btn-xs" (click)="toggleEditable(false)">
                                 <i class="fa-lg fa fa-ban" aria-hidden="true"></i>
                             </a>
@@ -86,15 +55,22 @@
                             </a>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <input class="row-size" type="text" [(ngModel)]="pageListSize" placeholder="number of rows to display" />
+                            <a class="btn btn-success btn-xs" (click)="fetchPage(0, pageListSize, null)">
+                                <i class="fa-lg fa fa-refresh" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div> <!-- /#list -->
 
-    <app-table-pagination  (click)="updateChart()" [table]="self" [page]="personPage"></app-table-pagination>
-    <app-chart [data]="chartData" [labels]="chartLabels" ></app-chart>
+    <app-table-pagination  (click)="updateCharts()" [table]="self" [page]="personPage" ></app-table-pagination>
 
-        <!-- Modal Delete-->
+    <!-- Modal Delete-->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -113,7 +89,7 @@
         </div>
     </div>
 
-        <!-- Modal Update -->
+    <!-- Modal Update -->
     <div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -132,4 +108,7 @@
             </div>
         </div>
     </div>
+
+
+    <app-report-sheet [tableSize]="pageListSize" [tableData]="personPage.content"></app-report-sheet>
 </template>
