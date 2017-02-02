@@ -3,7 +3,9 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
-
+import { ChartsModule } from 'ng2-charts';
+import { ChartModule } from 'angular2-highcharts';
+import { DragulaModule }from 'ng2-dragula';
 import {AppComponent} from './app.component';
 import {PersonComponent} from './person/person.component';
 import {PersonListComponent} from './person-list/person-list.component';
@@ -23,15 +25,16 @@ import {UserRegisterComponent} from './user-register/user-register.component';
 import {DraggableDirectiveComponent} from './draggable/draggable-directive.component';
 import {DraggableProviderService} from './service/draggable-provider.service';
 
-import { ChartsModule } from 'ng2-charts';
+
 import { ChartComponent } from './chart/chart.component';
 import { ChartService } from './service/chart.service';
 
-import { ChartModule } from 'angular2-highcharts';
+
 import { HighchartComponent } from './highchart/highchart.component';
 import { GooglechartComponent } from './googlechart/googlechart.component';
 import { GooglePieChartComponent } from './google-pie-chart/google-pie-chart.component';
 import { ReportSheetComponent } from './report-sheet/report-sheet.component';
+import { ModalComponent } from './modal/modal.component';
 //import {SampleListComponent} from './sample/sample-list.component';
 
 const appRoutes: Routes = [
@@ -62,7 +65,8 @@ const appRoutes: Routes = [
         HighchartComponent,
         GooglechartComponent,
         GooglePieChartComponent,
-        ReportSheetComponent
+        ReportSheetComponent,
+        ModalComponent
     ],
     imports: [
         BrowserModule,
@@ -70,7 +74,8 @@ const appRoutes: Routes = [
         HttpModule,
         RouterModule.forRoot(appRoutes),
         ChartsModule,
-        ChartModule
+        ChartModule,
+        DragulaModule
     ],
    
     providers: [PersonService, UserService, AuthenticationService , AlertService, DraggableProviderService, ChartService],

@@ -12,7 +12,7 @@
                         <th class="deleteAll">DeleteAll</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody [dragula]='"row-one"' [dragulaModel]='personPage.content'>
                     <tr [ngSwitch]="editable" *ngFor="let person of personPage.content; let i=index">
                         <td *ngSwitchCase="true"><input #frst (keyup)="checkIfChange(frst)" type="text" [(ngModel)]="person.firstname" placeholder="name" /></td>
                         <td *ngSwitchCase="true"><input  #lst (keyup)="checkIfChange(lst)" type="text" [(ngModel)]="person.lastname" placeholder="name" /></td>
@@ -33,6 +33,10 @@
                             </a>
                         </td>
                     </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
                     <tr [ngSwitch]="editable" style="background-color: #888;">
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.firstname" placeholder="firstname" /></td>
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.lastname" placeholder="lastname" /></td>
@@ -69,6 +73,7 @@
     </div> <!-- /#list -->
 
     <app-table-pagination  (click)="updateCharts()" [table]="self" [page]="personPage" ></app-table-pagination>
+
 
     <!-- Modal Delete-->
     <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
@@ -108,7 +113,6 @@
             </div>
         </div>
     </div>
-
 
     <app-report-sheet [tableSize]="pageListSize" [tableData]="personPage.content"></app-report-sheet>
 </template>
