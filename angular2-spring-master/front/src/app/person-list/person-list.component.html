@@ -35,7 +35,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table>
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <tbody>
                     <tr [ngSwitch]="editable" style="background-color: #888;">
                         <td (keyup)="isAdd=true" (click)="toggleEditable(false)"><input type="text" [(ngModel)]="newPerson.firstname" placeholder="firstname" /></td>
@@ -62,7 +62,7 @@
                     <tr>
                         <td>
                             <input class="row-size" type="text" [(ngModel)]="pageListSize" placeholder="number of rows to display" />
-                            <a class="btn btn-success btn-xs" (click)="fetchPage(0, pageListSize, null)">
+                            <a class="btn btn-success btn-xs" (click)="fetchPage(0, pageListSize, null); updateCharts()">
                                 <i class="fa-lg fa fa-refresh" aria-hidden="true"></i>
                             </a>
                         </td>

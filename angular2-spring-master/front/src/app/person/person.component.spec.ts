@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
+import {PersonService} from '../person.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { PersonComponent } from './person.component';
 
 describe('PersonComponent', () => {
@@ -11,7 +13,16 @@ describe('PersonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonComponent ]
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [ 
+        PersonComponent 
+      ],
+      providers:
+      [
+        PersonService
+      ]
     })
     .compileComponents();
   }));

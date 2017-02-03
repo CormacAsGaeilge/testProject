@@ -9,10 +9,10 @@ export class ChartComponent {
 
 
 // lineChart
-   @Input('data') chartData:Array<any>;
-   @Input('labels') chartLabels:Array<any>;
-   @Input('type') chartType:string;
-   @Input('legend') chartLegend:boolean;
+   @Input('data') chartData:Array<any> = [{data: [0,0,0,0,0], label: 'TEST'}];
+   @Input('labels') chartLabels:Array<any> = [];
+   @Input('type') chartType:string = "bar";
+   @Input('legend') chartLegend:boolean = false;
    @Input('chartTypePicker') chartTypePicker: boolean = false;
 
   public chartOptions:any = {
@@ -43,7 +43,7 @@ export class ChartComponent {
   // events
   public chartClicked(e:any):void {
     //console.log(e);
-    this.chartData = this.chartData.slice();
+    //this.chartData = this.chartData.slice();
   }
  
   public chartHovered(e:any):void {
@@ -55,4 +55,10 @@ export class ChartComponent {
     this.chartLegend = !this.chartLegend;
   }
 
+  refresh()
+  {
+      console.log("UpdateCharts");
+  }
 }
+
+

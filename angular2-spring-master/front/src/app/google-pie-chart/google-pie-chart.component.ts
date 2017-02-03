@@ -7,13 +7,16 @@ import {GooglechartComponent} from '../googlechart/googlechart.component';
   styleUrls: ['./google-pie-chart.component.css']
 })
 export class GooglePieChartComponent implements OnInit {
-	@Input('data') pieData:Array<any> = [];
-	@Input('labels') pieLabels:Array<string> = [];
-  	@Input('title') title:string = "title";
+	@Input('data') pieData:Array<any> = [
+            {data: ["test1","test2"], label: 'TEST'},
+          ];;
+	@Input('labels') pieLabels:Array<string> = ["t1","t2"];
+	@Input('title') title:string = "title";
+  
   public pie_ChartData = [
     ];
   public pie_ChartOptions  = {
-    title: 'Location',
+    title: this.title,
     width: 900,
     height: 500
   };

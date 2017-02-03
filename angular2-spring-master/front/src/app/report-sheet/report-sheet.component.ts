@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {ChartService} from '../service/chart.service';
+import {ChartComponent} from '../chart/chart.component';
 
 @Component({
   selector: 'app-report-sheet',
@@ -8,6 +9,10 @@ import {ChartService} from '../service/chart.service';
 })
 export class ReportSheetComponent implements OnInit {
 
+
+    @ViewChild(ChartComponent) childcmp:ChartComponent;
+
+
 	@Input('tableData') tableData:Array<any>;
 	@Input('tableSize') tableSize:number;
     chartData : Array<any>;
@@ -15,6 +20,11 @@ export class ReportSheetComponent implements OnInit {
     chartType : string;
     locationData : Array<any>;
     locationLabels : Array<any>;
+    ageLocationData : Array<any>;
+
+
+
+
   	constructor(private chartService: ChartService) { }
 
   	ngOnInit() {
@@ -27,6 +37,9 @@ export class ReportSheetComponent implements OnInit {
             {data: [0,0,0,0,0], label: 'Location'},
           ];
         this.locationLabels =[];
+        this.ageLocationData =[
+            {data: [0,0,0,0,0], label: 'AgeByLocation'},
+          ];
         this.updateCharts();
   	}
 
@@ -34,6 +47,8 @@ export class ReportSheetComponent implements OnInit {
     {
         this.updateAgeChart();
         this.updateLocationChart();
+        this.updateAgeLocationChart();
+        this.childcmp.refresh();
     }
 
     updateAgeChart()
@@ -72,6 +87,28 @@ export class ReportSheetComponent implements OnInit {
             this.locationLabels=result[0];
             this.locationData =[ 
                 {data: result[1], label:'Location'},
+            ];
+        }, 600);
+    }
+
+    updateAgeLocationChart()
+    {
+        setTimeout(() => {  
+            let locationArray: string[] = [];
+            let ages: number[] = [];
+            let i=0;
+            for(let p of this.tableData)
+            {
+                locationArray[i] = p.location;
+                ages[i] = p.age;
+                i++;
+            }
+            let temp = [locationArray,ages];
+            let res = this.chartService.dataCount(locationArray);
+            let result = this.chartService.dataCount2(res, temp);
+            this.locationLabels=result[0];
+            this.ageLocationData =[ 
+                {data: result[1], label:'AgeByLocation'},
             ];
         }, 600);
     }

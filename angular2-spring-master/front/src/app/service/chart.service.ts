@@ -20,4 +20,20 @@ export class ChartService {
         }
         return [a, b];
     }
+
+     dataCount2(arr:Array<any>, arr2:Array<any>) {
+    let a = [], b = [];
+    let x = 0;
+
+    for(let i = 0; i < arr.length; i++){
+        a.push(arr[i][0]);
+        for(let j=0; j< arr2.length; i++){
+            if(arr[i][0] === arr[j][0])
+                x+=arr[j][1];
+        }
+        x/=arr[i][1];
+        b.push(x);
+    }
+        return [a, b];
+    }
 }

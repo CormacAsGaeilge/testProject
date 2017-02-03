@@ -8,6 +8,14 @@ import { ChartModule } from 'angular2-highcharts';
 })
 export class HighchartComponent implements OnInit {
 
+options: Object;
+    from: any;
+    to: any;
+    serieName:any;
+    point: any;
+
+
+
   constructor() {
         this.options = {
             title : { text : 'simple chart' },
@@ -16,11 +24,7 @@ export class HighchartComponent implements OnInit {
             }]
         };
     }
-    options: Object;
-    from: any;
-    to: any;
-    serieName:any;
-    point: any;
+    
     
     onChartSelection (e) {
 	  	this.from = e.originalEvent.xAxis[0].min.toFixed(2);

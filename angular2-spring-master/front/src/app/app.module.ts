@@ -3,9 +3,9 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
-import { ChartModule } from 'angular2-highcharts';
-import { DragulaModule }from 'ng2-dragula';
+import {ChartsModule } from 'ng2-charts';
+import {ChartModule } from 'angular2-highcharts';
+import {DragulaModule }from 'ng2-dragula';
 import {AppComponent} from './app.component';
 import {PersonComponent} from './person/person.component';
 import {PersonListComponent} from './person-list/person-list.component';
@@ -22,10 +22,6 @@ import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
 import {UserRegisterComponent} from './user-register/user-register.component';
 
-import {DraggableDirectiveComponent} from './draggable/draggable-directive.component';
-import {DraggableProviderService} from './service/draggable-provider.service';
-
-
 import { ChartComponent } from './chart/chart.component';
 import { ChartService } from './service/chart.service';
 
@@ -35,11 +31,9 @@ import { GooglechartComponent } from './googlechart/googlechart.component';
 import { GooglePieChartComponent } from './google-pie-chart/google-pie-chart.component';
 import { ReportSheetComponent } from './report-sheet/report-sheet.component';
 import { ModalComponent } from './modal/modal.component';
-//import {SampleListComponent} from './sample/sample-list.component';
 
 const appRoutes: Routes = [
     {path: '', component: PersonListComponent},
-    //{path: '', component: SampleListComponent},
     {path: 'person/:id', component: PersonComponent},
     {path: 'person_edit/:id', component: PersonEditComponent},
     {path: 'person_add', component: PersonAddComponent},
@@ -60,7 +54,6 @@ const appRoutes: Routes = [
         RegisterComponent,
         LoginComponent,
         UserRegisterComponent,
-        DraggableDirectiveComponent,
         ChartComponent,
         HighchartComponent,
         GooglechartComponent,
@@ -78,7 +71,13 @@ const appRoutes: Routes = [
         DragulaModule
     ],
    
-    providers: [PersonService, UserService, AuthenticationService , AlertService, DraggableProviderService, ChartService],
+    providers: [
+        PersonService, 
+        UserService, 
+        AuthenticationService , 
+        AlertService,  
+        ChartService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

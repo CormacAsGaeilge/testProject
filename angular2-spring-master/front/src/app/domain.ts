@@ -6,9 +6,3 @@ export class Person {
     age 		: number;
     location	: string;
 }
-
-export class File
-{
-
-	
-}

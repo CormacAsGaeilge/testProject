@@ -4,11 +4,14 @@
 	<app-chart [data]="locationData" [labels]="locationLabels" [legend]="true" [type]="'pie'" [chartTypePicker]="true"></app-chart>
 </div>
 
-<!-- angular2-highchart  -->
-<app-highchart></app-highchart>
+<app-chart [data]="ageLocationData" [labels]="locationLabels" [legend]="true" [type]="'line'" [chartTypePicker]="true"></app-chart>
 
-<!-- googlechart -->
+<!-- angular2-highchart  
+<app-highchart></app-highchart>-->
+
+<!-- googlechart 
 <button (click)="viewCharts=!viewCharts">View Charts</button>
 <div *ngIf="viewCharts">
 	<app-google-pie-chart [title]="'Location'" [data]="locationData" [labels]="locationLabels"></app-google-pie-chart>
 </div>
+-->
