@@ -31,6 +31,8 @@ import { GooglechartComponent } from './googlechart/googlechart.component';
 import { GooglePieChartComponent } from './google-pie-chart/google-pie-chart.component';
 import { ReportSheetComponent } from './report-sheet/report-sheet.component';
 import { ModalComponent } from './modal/modal.component';
+import { HcPieComponent } from './highchart/hc-pie/hc-pie.component';
+import { HcBarComponent } from './highchart/hc-bar/hc-bar.component';
 
 const appRoutes: Routes = [
     {path: '', component: PersonListComponent},
@@ -59,7 +61,9 @@ const appRoutes: Routes = [
         GooglechartComponent,
         GooglePieChartComponent,
         ReportSheetComponent,
-        ModalComponent
+        ModalComponent,
+        HcPieComponent,
+        HcBarComponent
     ],
     imports: [
         BrowserModule,

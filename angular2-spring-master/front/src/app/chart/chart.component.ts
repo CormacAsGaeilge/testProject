@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core';
 export class ChartComponent {
 
 
-// lineChart
    @Input('data') chartData:Array<any> = [{data: [0,0,0,0,0], label: 'TEST'}];
    @Input('labels') chartLabels:Array<any> = [];
    @Input('type') chartType:string = "bar";

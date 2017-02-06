@@ -2,41 +2,48 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ChartModule } from 'angular2-highcharts'; 
 
 @Component({
-  selector: 'app-highchart',
-  templateUrl: './highchart.component.html',
-  styleUrls: ['./highchart.component.css']
+  selector: 'app-hc-pie',
+  templateUrl: './hc-pie.component.html',
+  styleUrls: ['./hc-pie.component.css']
 })
-export class HighchartComponent implements OnInit {
+export class HcPieComponent implements OnInit {
 
+	@Input('data') chartData:Array<any> = [{data: [0], label: ''}];
+   	@Input('labels') chartLabels:Array<any> = [];
+   	@Input('legend') chartLegend:boolean = false;
 
-
-   @Input('data') chartData:Array<any> = [{data: [0,0,0,0,0], label: ''}];
-   @Input('labels') chartLabels:Array<any> = [];
-   @Input('type') chartType:string = "bar";
-   @Input('legend') chartLegend:boolean = false;
-
-
-
-options: Object;
+  
+	options: Object;
     from: any;
     to: any;
     serieName:any;
     point: any;
+    pieData: Array<any> = [];
 
-
-//line or bar
   constructor() {
+
+     	this.setPieData();
         this.options = {
             chart: {
-              type: this.chartType,
+              type: 'pie',
             },
+            plotOptions: {
+		        pie: {
+		            allowPointSelect: true,
+		            cursor: 'pointer',
+		            dataLabels: {
+		                enabled: true,
+		                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+		            }
+		        }
+		    },
             title : { text : this.chartData[0].label },
             xAxis: {
                 categories: this.chartLabels,
             },
             series: [{
               name : this.chartData[0].label,
-                data: this.chartData[0].data,
+                data: this.pieData,
             }]
         };
     }
@@ -58,19 +65,29 @@ options: Object;
   ngOnInit() {
   }
 
+setPieData()
+{
+	for(let i=0; i < this.chartData[0].data.length; i++)
+	   	{
+	   		this.pieData[i] = {
+	   			name: this.chartLabels[i],
+	   			y :this.chartData[0].data[i]
+	   		};
+	   	}
+	   }
    refresh(){
+
      setTimeout(() => { 
+
+     	this.setPieData();
        this.options = {
              chart: {
-                  type: this.chartType,
+                  type: 'pie',
                 },
               title : { text : this.chartData[0].label },
-              xAxis: {
-                  categories: this.chartLabels,
-              },
               series: [{
                 name : this.chartData[0].label,
-                  data: this.chartData[0].data,
+                  data: this.pieData
               }]
           };
         },800);

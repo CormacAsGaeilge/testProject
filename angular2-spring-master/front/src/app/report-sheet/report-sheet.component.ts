@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {ChartService} from '../service/chart.service';
-import {ChartComponent} from '../chart/chart.component';
+import {HcPieComponent} from '../highchart/hc-pie/hc-pie.component';
+import {HcBarComponent} from '../highchart/hc-bar/hc-bar.component';
 
 @Component({
   selector: 'app-report-sheet',
@@ -10,8 +11,8 @@ import {ChartComponent} from '../chart/chart.component';
 export class ReportSheetComponent implements OnInit {
 
 
-    @ViewChild(ChartComponent) childcmp:ChartComponent;
-
+    @ViewChild(HcPieComponent) hcPie:HcPieComponent;
+    @ViewChild(HcBarComponent) hcBar:HcBarComponent;
 
 	@Input('tableData') tableData:Array<any>;
 	@Input('tableSize') tableSize:number;
@@ -47,8 +48,9 @@ export class ReportSheetComponent implements OnInit {
     {
         this.updateAgeChart();
         this.updateLocationChart();
-        this.updateAgeLocationChart();
-        this.childcmp.refresh();
+        //this.updateAgeLocationChart();
+        this.hcPie.refresh();
+        this.hcBar.refresh();
     }
 
     updateAgeChart()

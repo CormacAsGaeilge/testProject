@@ -2,17 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ChartModule } from 'angular2-highcharts'; 
 
 @Component({
-  selector: 'app-highchart',
-  templateUrl: './highchart.component.html',
-  styleUrls: ['./highchart.component.css']
+  selector: 'app-hc-bar',
+  templateUrl: './hc-bar.component.html',
+  styleUrls: ['./hc-bar.component.css']
 })
-export class HighchartComponent implements OnInit {
+export class HcBarComponent implements OnInit {
 
 
 
    @Input('data') chartData:Array<any> = [{data: [0,0,0,0,0], label: ''}];
    @Input('labels') chartLabels:Array<any> = [];
-   @Input('type') chartType:string = "bar";
    @Input('legend') chartLegend:boolean = false;
 
 
@@ -28,7 +27,7 @@ options: Object;
   constructor() {
         this.options = {
             chart: {
-              type: this.chartType,
+              type: 'bar',
             },
             title : { text : this.chartData[0].label },
             xAxis: {
@@ -62,7 +61,7 @@ options: Object;
      setTimeout(() => { 
        this.options = {
              chart: {
-                  type: this.chartType,
+                  type: 'bar',
                 },
               title : { text : this.chartData[0].label },
               xAxis: {
