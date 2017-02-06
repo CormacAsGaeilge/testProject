@@ -1,29 +1,65 @@
-<div>
-    <h2>Register</h2>
-    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="first">First Name</label>
-            <input type="text" class="form-control" name="first" [(ngModel)]="user.firstName" #first="ngModel" required />
-            <div *ngIf="f.submitted && !first.valid" class="help-block">First Name is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="last">Last Name</label>
-            <input type="text" class="form-control" name="last" [(ngModel)]="user.lastName" #last="ngModel" required />
-            <div *ngIf="f.submitted && !last.valid" class="help-block">Last Name is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="user1">Username</label>
-            <input type="text" class="form-control" name="user1" [(ngModel)]="user.username" #user1="ngModel" required />
-            <div *ngIf="f.submitted && !user1.valid" class="help-block">Username is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="pass">Password</label>
-            <input type="password" class="form-control" name="pass" [(ngModel)]="user.password" #pass="ngModel" required />
-            <div *ngIf="f.submitted && !pass.valid" class="help-block">Password is required</div>
-        </div>
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Register</button>
-            <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
-        </div>
+<div class="jumbotron">
+    <h2>Register Form</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm.value)">
+      <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['firstName'].valid}">
+        <label>First Name:</label>
+        <input class="form-control" type="text" placeholder="firstname" [formControl]="registerForm.controls['firstName']">
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['lastName'].valid}">
+        <label>Last Name</label>
+        <input class="form-control" type="text" placeholder="last name" [formControl]="cregisterForm.controls['lastName']">
+      </div>
+       <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['password'].valid}">
+        <label>Password</label>
+        <input class="form-control" type="text" placeholder="password" [formControl]="cregisterForm.controls['password']">
+    </div>
+
+    <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['confirmpassword'].valid}">
+        <label>Confirm Password</label>
+        <input class="form-control" type="text" placeholder="confirm password" [formControl]="cregisterForm.controls['confirmpassword']">
+    </div>
+
+
+      <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['email'].valid}">
+        <label>Email</label>
+        <input class="form-control" type="text" placeholder="email" [formControl]="cregisterForm.controls['email']">
+    </div>
+
+      <div class="form-group" [ngClass]="{'has-error':!registerForm.controls['phone'].valid}">
+        <label>Phone</label>
+        <input class="form-control" type="text" placeholder="phone" [formControl]="cregisterForm.controls['phone']">
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['gender'].valid}">
+        <label>Gender</label>
+         <div class="alert alert-danger" *ngIf="!complexForm.controls['gender'].valid">You must select a gender.</div>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" value="Male" [formControl]="registerForm.controls['gender']">
+          Male
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="gender" value="Female" [formControl]="registerForm.controls['gender']">
+          Female
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Types</label>
+      </div>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="auth" name="auth" [formControl]="registerForm.controls['auth']"> Auth
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="normal" name="normal" [formControl]="registerForm.controls['normal']"> Normal
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="manager" name="manager" [formControl]="registerForm.controls['manager']"> Manager
+      </label>
+      <div class="form-group">
+        <button type="submit" class="btn btn-default" [disabled]="!complexForm.valid">Submit</button>
+      </div>
     </form>
-</div>
+  </div>
+

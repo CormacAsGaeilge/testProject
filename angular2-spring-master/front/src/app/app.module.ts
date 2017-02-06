@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 import {ChartsModule } from 'ng2-charts';
@@ -33,6 +33,7 @@ import { ReportSheetComponent } from './report-sheet/report-sheet.component';
 import { ModalComponent } from './modal/modal.component';
 import { HcPieComponent } from './highchart/hc-pie/hc-pie.component';
 import { HcBarComponent } from './highchart/hc-bar/hc-bar.component';
+import { FormvalidationComponent } from './formvalidation/formvalidation.component';
 
 const appRoutes: Routes = [
     {path: '', component: PersonListComponent},
@@ -63,7 +64,10 @@ const appRoutes: Routes = [
         ReportSheetComponent,
         ModalComponent,
         HcPieComponent,
-        HcBarComponent
+        HcBarComponent,
+        RegisterComponent,
+        LoginComponent,
+        FormvalidationComponent
     ],
     imports: [
         BrowserModule,
@@ -72,7 +76,8 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         ChartsModule,
         ChartModule,
-        DragulaModule
+        DragulaModule,
+        ReactiveFormsModule
     ],
    
     providers: [
