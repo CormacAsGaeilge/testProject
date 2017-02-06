@@ -70,10 +70,13 @@ export class PersonListComponent implements OnInit, Table<Person> {
         this.router.navigate(['person_add']);
     }
 
-    checkIfChange(id)
+    checkIfChange(id, person)
     {
         if(id.classList.contains('ng-dirty'))
+        {
             this.isChanged=true;
+            person.changed=true;
+        }
     }
 
     toggleEditable(bool : boolean)
@@ -87,8 +90,14 @@ export class PersonListComponent implements OnInit, Table<Person> {
 
     checkForUpdate()
     {
+        this.updated=0;
         for(let p of this.personPage.content)
         {
+            if(p.changed == true)
+            {
+                this.updated++;
+                p.changed = false;
+            }
             this.update(p);
         }
         this.isChanged=false;
@@ -122,7 +131,8 @@ export class PersonListComponent implements OnInit, Table<Person> {
             },
             error => console.log(error));
         this.isAdd=false;
-        this.router.navigate(['']);
+        this.fetchPage(0, this.pageListSize, null);
+        this.updateCharts();
     }
 
     delete(person) {

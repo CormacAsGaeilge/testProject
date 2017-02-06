@@ -14,10 +14,10 @@
                 </thead>
                 <tbody [dragula]='"row-one"' [dragulaModel]='personPage.content'>
                     <tr [ngSwitch]="editable" *ngFor="let person of personPage.content; let i=index">
-                        <td *ngSwitchCase="true"><input #frst (keyup)="checkIfChange(frst)" type="text" [(ngModel)]="person.firstname" placeholder="name" /></td>
-                        <td *ngSwitchCase="true"><input  #lst (keyup)="checkIfChange(lst)" type="text" [(ngModel)]="person.lastname" placeholder="name" /></td>
-                        <td *ngSwitchCase="true"><input  #age (keyup)="checkIfChange(age)" type="text" [(ngModel)]="person.age" placeholder="age" /></td>
-                        <td *ngSwitchCase="true"><input  #location (keyup)="checkIfChange(location)" type="text" [(ngModel)]="person.location" placeholder="location" /></td>
+                        <td *ngSwitchCase="true"><input #frst (keyup)="checkIfChange(frst, person)" type="text" [(ngModel)]="person.firstname" placeholder="name" /></td>
+                        <td *ngSwitchCase="true"><input  #lst (keyup)="checkIfChange(lst, person)" type="text" [(ngModel)]="person.lastname" placeholder="name" /></td>
+                        <td *ngSwitchCase="true"><input  #age (keyup)="checkIfChange(age, person)" type="text" [(ngModel)]="person.age" placeholder="age" /></td>
+                        <td *ngSwitchCase="true"><input  #location (keyup)="checkIfChange(location, person)" type="text" [(ngModel)]="person.location" placeholder="location" /></td>
                         <td  (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.firstname}}</td>
                         <td (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.lastname}}</td>
                         <td  (click)="toggleEditable(true)"  *ngSwitchCase="false">{{person.age}}</td>

@@ -5,4 +5,5 @@ export class Person {
     lastname 	: string;
     age 		: number;
     location	: string;
+    changed		:boolean;
 }

@@ -7,8 +7,11 @@ describe('ang2 App', function() {
     page = new Ang2Page();
   });
 
-  it('should display message saying app works', () => {
+  it('should have a title saying Ang2', () => {
     page.navigateTo();
     expect(page.getTitle()).toEqual('Ang2');
   });
+
+
+
 });
