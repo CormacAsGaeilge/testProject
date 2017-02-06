@@ -4,6 +4,9 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import {ChartsModule } from 'ng2-charts';
 import {ChartModule } from 'angular2-highcharts';
+import {ChartService} from '../service/chart.service';
+
+import { ChartComponent } from '../chart/chart.component';
 import { ReportSheetComponent } from './report-sheet.component';
 
 describe('ReportSheetComponent', () => {
@@ -12,7 +15,9 @@ describe('ReportSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportSheetComponent ]
+      imports: [ChartsModule, ChartModule],
+      declarations: [ ReportSheetComponent, ChartComponent ],
+      providers: [ChartService]
     })
     .compileComponents();
   }));

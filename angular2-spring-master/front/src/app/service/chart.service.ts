@@ -25,15 +25,16 @@ export class ChartService {
     let a = [], b = [];
     let x = 0;
 
-    for(let i = 0; i < arr.length; i++){
-        a.push(arr[i][0]);
-        for(let j=0; j< arr2.length; i++){
-            if(arr[i][0] === arr[j][0])
-                x+=arr[j][1];
-        }
-        x/=arr[i][1];
-        b.push(x);
-    }
+    // for(let i = 0; i < arr.length; i++){
+    //     console.log(arr[i][0]);
+    //     a.push(arr[i][0]);
+    //     for(let j=0; j< arr2.length; i++){
+    //         if(arr[i][0] === arr[j][0])
+    //             x+=arr[j][1];
+    //     }
+    //     x/=arr[i][1];
+    //     b.push(x);
+    // }
         return [a, b];
     }
 }
