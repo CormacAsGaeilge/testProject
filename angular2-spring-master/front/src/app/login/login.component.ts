@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Http, Response, Request, RequestMethod} from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from '../service/alert.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +11,16 @@ import {Http, Response, Request, RequestMethod} from '@angular/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  model: any = {};
+  loading = false;
+  returnUrl: string;
 	loginForm : FormGroup;
 	authenticated : boolean;
 	profile : Object;
 
- constructor(fb: FormBuilder, public http: Http){
+ constructor(fb: FormBuilder, public http: Http, private route: ActivatedRoute,
+   private router: Router, private authenticationService: AuthenticationService,
+   private alertService: AlertService){
     if(localStorage.getItem('jwt')){
       this.authenticated = true;
       this.profile = JSON.parse(localStorage.getItem('profile'));
@@ -58,6 +66,20 @@ export class LoginComponent implements OnInit {
       }
     )
   }
+
+
+    login() {
+        this.loading = true;
+        this.authenticationService.login(this.model.username, this.model.password)
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
   
   logout(){
     localStorage.removeItem('jwt');
@@ -66,6 +88,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
 }

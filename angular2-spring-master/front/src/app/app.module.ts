@@ -35,8 +35,15 @@ import { HcPieComponent } from './highchart/hc-pie/hc-pie.component';
 import { HcBarComponent } from './highchart/hc-bar/hc-bar.component';
 import { FormvalidationComponent } from './formvalidation/formvalidation.component';
 
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth-guard/auth.guard';
+import { routing }        from './app.routing';
+import { AlertComponent } from './alert/alert.component';
+
+
 const appRoutes: Routes = [
-    {path: '', component: PersonListComponent},
+{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    {path: 'person_list/:id', component: PersonListComponent},
     {path: 'person/:id', component: PersonComponent},
     {path: 'person_edit/:id', component: PersonEditComponent},
     {path: 'person_add', component: PersonAddComponent},
@@ -67,7 +74,9 @@ const appRoutes: Routes = [
         HcBarComponent,
         RegisterComponent,
         LoginComponent,
-        FormvalidationComponent
+        FormvalidationComponent,
+        HomeComponent,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -77,15 +86,18 @@ const appRoutes: Routes = [
         ChartsModule,
         ChartModule,
         DragulaModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        routing
+
     ],
-   
+  
     providers: [
         PersonService, 
         UserService, 
         AuthenticationService , 
         AlertService,  
-        ChartService
+        ChartService,
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })

@@ -6,3 +6,4 @@ export * from './service/user.service';
 export * from './register/register.component';
 export * from './login/login.component';
 
+export * from './home/home.component';
